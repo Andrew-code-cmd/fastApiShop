@@ -1,9 +1,10 @@
 from pydantic import BaseModel, Field
 
 
+''' Описываем параметры валидации для полей  '''
+
+
 class CategoryBase(BaseModel):
-    ''' Описываем параметры валидации для полей '''
-    
     name: str = Field( ..., min_length=5, max_length=100, 
                       description="Category name")
     slug: str = Field( ..., min_length=5, max_length=100, 

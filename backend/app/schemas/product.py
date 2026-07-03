@@ -4,6 +4,9 @@ from typing import Optional
 from .category import CategoryResponse
 
 
+''' Описываем параметры валидации для полей  '''
+
+
 class ProductBase(BaseModel):
     name: str = Field( ..., min_length=1, max_length=200,
                       description="Product name")
