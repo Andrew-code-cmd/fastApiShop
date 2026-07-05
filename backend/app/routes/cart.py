@@ -1,4 +1,4 @@
-from fastAPI import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 from typing import Dict 
 from ..services.cart_service import *

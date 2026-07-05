@@ -24,8 +24,8 @@ class ProductCreate(ProductBase):
 class ProductResponse(BaseModel): # определяет то, как мы будем видеть получаемую из API информацию
     id: int = Field( ..., description="Unique product ID")
     name: str
-    description = Optional[str]
-    price = float
+    description: Optional[str]
+    price: float
     category_id: int
     image_url: Optional[str]
     created_at: datetime
