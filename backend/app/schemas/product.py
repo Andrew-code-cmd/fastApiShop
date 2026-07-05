@@ -32,7 +32,7 @@ class ProductResponse(BaseModel): # определяет то, как мы бу�
     category: CategoryResponse = Field( ..., description="Product category details")
 
     class Config:
-        form_attributes = True
+        from_attributes = True
 
 
 class ProductListResponse(BaseModel): # тут определяем поля, выводимые в общем списке товаров

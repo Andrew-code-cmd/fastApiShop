@@ -8,10 +8,14 @@ from fastapi import HTTPException, status
 class CategoryService:
     def __init__(self, db: Session):
         self.repository = CategoryRepository(db)
+
+    def _model_to_response(self, category) -> CategoryResponse:
+        data = {k: v for k, v in category.__dict__.items() if not k.startswith("_")}
+        return CategoryResponse.model_validate(data)
     
     def get_all_categories(self) -> List[CategoryResponse]:
         categories = self.repository.get_all()
-        return [CategoryResponse.model_validate(cat) for cat in categories]
+        return [self._model_to_response(cat) for cat in categories]
     
     def get_category_by_id(self, category_id: int) -> CategoryResponse:
         category = self.repository.get_by_id(category_id)
@@ -20,7 +24,7 @@ class CategoryService:
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f'Category with id {category_id} not found'
             )
-        return CategoryResponse.model_validate(category)
+        return self._model_to_response(category)
 
     def create_category(self, category_data: CategoryCreate) -> CategoryResponse:
         category = self.repository.create(category_data)

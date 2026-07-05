@@ -9,7 +9,7 @@ class ProductRepository:
         self.db = db
 
     def get_all(self) -> List[Product]: # получаем все продукты
-        return self.db.query(Product).option(joinedload(Product.category)).all()
+        return self.db.query(Product).options(joinedload(Product.category)).all()
 
     def get_by_id(self, product_id: int) -> Optional[Product]:
         return (

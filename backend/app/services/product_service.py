@@ -11,22 +11,30 @@ class ProductService:
         self.product_repository = ProductRepository(db)
         self.category_repository = CategoryRepository(db)
     
+    def _model_to_response(self, product) -> ProductResponse:
+        data = {k: v for k, v in product.__dict__.items() if not k.startswith("_")}
+        if "category" in data and data["category"] is not None:
+            category = data["category"]
+            category_data = {k: v for k, v in category.__dict__.items() if not k.startswith("_")}
+            data["category"] = category_data
+        return ProductResponse.model_validate(data)
+
     def get_all_products(self) -> ProductListResponse:
         products = self.product_repository.get_all()
-        product_response = [ProductResponse.model_validate(product) for product in products]
+        product_response = [self._model_to_response(product) for product in products]
         return ProductListResponse(products=product_response, total=len(product_response))        
     
     def get_product_by_id(self, product_id: int) -> ProductResponse:
-        product = self.product_repository.get_by_id()
+        product = self.product_repository.get_by_id(product_id)
         if not product:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f'Product with id {product_id} not found'
             )   
-        return ProductResponse.model_validate(product)
+        return self._model_to_response(product)
 
     def get_products_by_category(self, category_id: int) -> ProductListResponse:
-        category = self.category_repository.get_by_id()
+        category = self.category_repository.get_by_id(category_id)
         if not category:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
@@ -34,7 +42,7 @@ class ProductService:
             )
         
         products = self.product_repository.get_by_category(category_id)
-        product_response = [ProductResponse.model_validate(prod) for prod in products]
+        product_response = [self._model_to_response(prod) for prod in products]
         return ProductListResponse(products=product_response, total=len(product_response))
     
     def create_product(self, product_data: ProductCreate) -> ProductResponse:
