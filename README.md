@@ -1,13 +1,10 @@
 # FastAPI Shop 
 
-Учебный pet-проект интернет-магазина с каталогом товаров, фильтрами и корзиной
-
----
+Небольшой интернет-магазин с каталогом товаров, фильтрами и корзиной
 
 <img width="1957" height="1355" alt="Screenshot From 2026-07-12 16-03-35" src="https://github.com/user-attachments/assets/6e73848b-b8fb-4172-ba11-f9f594e2b344" />
 <img width="1732" height="1112" alt="Screenshot From 2026-07-12 16-04-15" src="https://github.com/user-attachments/assets/b098e267-6a3c-466b-a3db-c8413735e787" />
 <img width="1732" height="1112" alt="Screenshot From 2026-07-12 16-04-41" src="https://github.com/user-attachments/assets/457a8893-14f0-4b33-aaee-8eebb88762cf" />
-
 
 ##  Возможности
 
